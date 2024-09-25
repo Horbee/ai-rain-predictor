@@ -1,0 +1,26 @@
+{
+  "rainPredictor": {
+    "buttonTitle": "Predict",
+    "description": "This AI Rain Predictor model specialises in the prediction of rain based on weather conditions such as temperature, humidity and pressure.",
+    "deleteConfirmation": "Are you sure you want to delete this record?",
+    "error": {
+      "title": "Uh oh! Something went wrong.",
+      "description": "Error while predicting rain"
+    },
+    "tabs": {
+      "city": "City",
+      "manual": "Manual",
+      "measurements": "Measurements"
+    },
+    "labels": {
+      "temperature": "Temperature (°C)",
+      "humidity": "Humidity (%)",
+      "pressure": "Pressure (hPa)",
+      "createdAt": "Created At",
+      "rain": "Rain (%)",
+      "city": "City",
+      "lastUpdated": "Last Updated",
+      "olderMeasurements": "Older Measurements"
+    }
+  }
+}

@@ -1,0 +1,15 @@
+name: rainpredictor
+channels:
+  - pytorch
+  - conda-forge
+  - defaults
+dependencies:
+  - numpy=1.26.4
+  - matplotlib=3.9.2
+  - pandas=2.2.2
+  - scikit-learn=1.5.1
+  - pytorch=2.4.1
+  - ipykernel=6.29.5
+  - ipython=8.27.0
+  - onnx=1.16.2
+  - onnxruntime=1.18.1

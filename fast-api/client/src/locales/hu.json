@@ -1,0 +1,26 @@
+{
+  "rainPredictor": {
+    "buttonTitle": "Elemzés",
+    "description": "Ez a gépi tanulási modell az eső előrejelzésére specializálódott az olyan időjárási körülmények alapján, mint a hőmérséklet, a páratartalom és a légnyomás.",
+    "deleteConfirmation": "Biztos, hogy törölni szeretnéd ezt a mérést?",
+    "error": {
+      "title": "Uh oh! Valami rosszul sült el.",
+      "description": "Hiba az eső előrejelzése során"
+    },
+    "tabs": {
+      "city": "Város",
+      "manual": "Kézi",
+      "measurements": "Mérések"
+    },
+    "labels": {
+      "temperature": "Hőmérséklet (°C)",
+      "humidity": "Páratartalom (%)",
+      "pressure": "Légnyomás (hPa)",
+      "createdAt": "Létrehozva",
+      "rain": "Eső (%)",
+      "city": "Város",
+      "lastUpdated": "Utoljára frissítve",
+      "olderMeasurements": "Régebbi Mérések"
+    }
+  }
+}

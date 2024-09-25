@@ -1,0 +1,7 @@
+fastapi[standard]
+numpy
+uvicorn
+sqlmodel
+psycopg[binary]
+onnxruntime
+requests

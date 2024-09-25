@@ -1,0 +1,21 @@
+services:
+  - type: web
+    plan: free
+    region: frankfurt
+    runtime: docker
+    # rootDir: webdis
+    healthCheckPath: /api/health
+    name: rain-predictor-fast-api
+    repo: https://github.com/Horbee/rain-predictor-fast-api.git
+    branch: main
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: rain-predictor-db
+          property: connectionString
+      - fromGroup: rain-predictor-fast-api
+
+databases:
+  - name: rain-predictor-db
+    plan: free
+    region: frankfurt
