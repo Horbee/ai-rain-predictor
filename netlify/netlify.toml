@@ -1,0 +1,5 @@
+[functions]
+  directory = "functions"
+
+  included_files = ["model/*.onnx"]
+
