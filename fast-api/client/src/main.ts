@@ -1,6 +1,6 @@
 import { createApp } from "vue";
 import { createI18n } from "vue-i18n";
-import { VueQueryPlugin } from "@tanstack/vue-query";
+import { VueQueryPlugin, type VueQueryPluginOptions } from "@tanstack/vue-query";
 import en from "@/locales/en.json";
 import hu from "@/locales/hu.json";
 
@@ -24,4 +24,14 @@ const i18n = createI18n<[MessageSchema], "en" | "hu">({
   },
 });
 
-createApp(App).use(i18n).use(VueQueryPlugin).mount("#app");
+const vueQueryPluginOptions: VueQueryPluginOptions = {
+  queryClientConfig: {
+    defaultOptions: {
+      queries: {
+        refetchOnWindowFocus: false,
+      },
+    },
+  },
+};
+
+createApp(App).use(i18n).use(VueQueryPlugin, vueQueryPluginOptions).mount("#app");

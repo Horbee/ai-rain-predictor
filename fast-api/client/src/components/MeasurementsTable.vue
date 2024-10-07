@@ -6,13 +6,15 @@ import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { formatPercentage } from "@/lib/utils";
 import { Icon } from "@iconify/vue";
-import { useMeasurements } from "@/composables/useMeasurements";
+import { useMeasurementDelete } from "@/composables/mutations";
+import { useMeasurementsQuery } from "@/composables/queries";
 
 import type { MessageSchema } from "@/main";
 
 const { t } = useI18n<{ message: MessageSchema }>();
 
-const { data: measurements, deleteMeasurement } = useMeasurements();
+const { data: measurements } = useMeasurementsQuery();
+const deleteMeasurement = useMeasurementDelete();
 
 const onDeleteMeasurement = async (id: number) => {
   if (confirm(t("rainPredictor.deleteConfirmation"))) {

@@ -2,7 +2,7 @@ import numpy as np
 import requests
 import settings
 
-from rain_predictor import model_pipeline
+from rain_predictor import model_pipeline, ModelType
 from rain_predictor.types import RainPredictResponse
 
 from measurements.model import Measurement
@@ -41,7 +41,7 @@ def rain_predict(body: list[MeasurementsBody]) -> list[RainPredictResponse]:
 
     input = np.array([[measurement.temp, measurement.humidity,
                        measurement.pressure] for measurement in body], dtype=np.float32)
-    return model_pipeline(input)
+    return model_pipeline(input, "pytorch_nn")
 
 
 @router.get("/measurements")
@@ -58,7 +58,7 @@ def read_measurements() -> list[MeasurementWithRainPredictionResponse]:
 
         input = np.array([[measurement.temperature, measurement.humidity,
                           measurement.pressure] for measurement in measurements], dtype=np.float32)
-        predictions = model_pipeline(input)
+        predictions = model_pipeline(input, "pytorch_nn")
         return [{"measurement": measurement, "prediction": prediction} for measurement, prediction in zip(measurements, predictions)]
 
 
@@ -74,10 +74,9 @@ def delete_measurement(id: int):
 
 
 @router.get("/weather")
-def city_weather(city: str) -> CityWeatherWithRainPredictionResponse:
+def city_weather(city: str, model: ModelType | None = "pytorch_nn") -> CityWeatherWithRainPredictionResponse:
     url = f"https://api.weatherapi.com/v1/current.json?q={city}&key={settings.WEATHER_API_KEY}"
 
-    print(f"Making API call to Weather API with city: {city}")
     response = requests.get(url)
 
     if response.status_code == 200:
@@ -88,7 +87,7 @@ def city_weather(city: str) -> CityWeatherWithRainPredictionResponse:
         name = r["location"]["name"]
         last_updated = r["current"]["last_updated"]
         input = np.array([[temperature, humidity, pressure]], dtype=np.float32)
-        prediction = model_pipeline(input)
+        prediction = model_pipeline(input, model)
         return {"city_weather": {"temperature": temperature, "humidity": humidity, "pressure": pressure, "name": name, "last_updated": last_updated}, "prediction": prediction[0]}
     else:
         print(f"Error fetching weather data: {response.status_code}")

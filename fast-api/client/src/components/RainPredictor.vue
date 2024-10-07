@@ -8,7 +8,7 @@ import { Progress } from "@/components/ui/progress";
 import { formatPercentage } from "@/lib/utils";
 
 import { useLocalStorage } from "@vueuse/core";
-import { useRainPrediction } from "@/composables/useRainPrediction";
+import { useManualRainPrediction } from "@/composables/mutations";
 
 import type { MeasurementsBody } from "@/api";
 import type { MessageSchema } from "@/main";
@@ -21,12 +21,12 @@ const formState = useLocalStorage<MeasurementsBody>("manualPredictForm", {
   pressure: 0,
 });
 
-const { manualPredict, manualPredictResponse: response } = useRainPrediction();
+const { mutateAsync, isPending, response } = useManualRainPrediction();
 </script>
 
 <template>
   <div class="flex flex-col gap-8 items-center mt-8">
-    <form @submit.prevent="manualPredict.mutateAsync([formState])" novalidate class="flex flex-col gap-4 max-w-[400px] w-full">
+    <form @submit.prevent="mutateAsync([formState])" novalidate class="flex flex-col gap-4 max-w-[400px] w-full">
       <Label for="temp">{{ t("rainPredictor.labels.temperature") }}</Label>
       <Input v-model="formState.temp" id="temp" type="number" />
 
@@ -36,7 +36,7 @@ const { manualPredict, manualPredictResponse: response } = useRainPrediction();
       <Label for="pressure">{{ t("rainPredictor.labels.pressure") }}</Label>
       <Input v-model="formState.pressure" id="pressure" type="number" />
 
-      <Button :disabled="manualPredict.isPending.value">
+      <Button :disabled="isPending">
         {{ t("rainPredictor.buttonTitle") }}
       </Button>
     </form>

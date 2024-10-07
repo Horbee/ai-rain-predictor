@@ -235,10 +235,11 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
          * 
          * @summary City Weather
          * @param {string} city 
+         * @param {CityWeatherApiWeatherGetModelEnum} [model] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        cityWeatherApiWeatherGet: async (city: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        cityWeatherApiWeatherGet: async (city: string, model?: CityWeatherApiWeatherGetModelEnum, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'city' is not null or undefined
             assertParamExists('cityWeatherApiWeatherGet', 'city', city)
             const localVarPath = `/api/weather`;
@@ -255,6 +256,10 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
 
             if (city !== undefined) {
                 localVarQueryParameter['city'] = city;
+            }
+
+            if (model !== undefined) {
+                localVarQueryParameter['model'] = model;
             }
 
 
@@ -412,11 +417,12 @@ export const DefaultApiFp = function(configuration?: Configuration) {
          * 
          * @summary City Weather
          * @param {string} city 
+         * @param {CityWeatherApiWeatherGetModelEnum} [model] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async cityWeatherApiWeatherGet(city: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CityWeatherWithRainPredictionResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.cityWeatherApiWeatherGet(city, options);
+        async cityWeatherApiWeatherGet(city: string, model?: CityWeatherApiWeatherGetModelEnum, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CityWeatherWithRainPredictionResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.cityWeatherApiWeatherGet(city, model, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -475,11 +481,12 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
          * 
          * @summary City Weather
          * @param {string} city 
+         * @param {CityWeatherApiWeatherGetModelEnum} [model] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        cityWeatherApiWeatherGet(city: string, options?: any): AxiosPromise<CityWeatherWithRainPredictionResponse> {
-            return localVarFp.cityWeatherApiWeatherGet(city, options).then((request) => request(axios, basePath));
+        cityWeatherApiWeatherGet(city: string, model?: CityWeatherApiWeatherGetModelEnum, options?: any): AxiosPromise<CityWeatherWithRainPredictionResponse> {
+            return localVarFp.cityWeatherApiWeatherGet(city, model, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -533,12 +540,13 @@ export class DefaultApi extends BaseAPI {
      * 
      * @summary City Weather
      * @param {string} city 
+     * @param {CityWeatherApiWeatherGetModelEnum} [model] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DefaultApi
      */
-    public cityWeatherApiWeatherGet(city: string, options?: AxiosRequestConfig) {
-        return DefaultApiFp(this.configuration).cityWeatherApiWeatherGet(city, options).then((request) => request(this.axios, this.basePath));
+    public cityWeatherApiWeatherGet(city: string, model?: CityWeatherApiWeatherGetModelEnum, options?: AxiosRequestConfig) {
+        return DefaultApiFp(this.configuration).cityWeatherApiWeatherGet(city, model, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -588,5 +596,13 @@ export class DefaultApi extends BaseAPI {
     }
 }
 
+/**
+ * @export
+ */
+export const CityWeatherApiWeatherGetModelEnum = {
+    PytorchNn: 'pytorch_nn',
+    SckitlearnForest: 'sckitlearn_forest'
+} as const;
+export type CityWeatherApiWeatherGetModelEnum = typeof CityWeatherApiWeatherGetModelEnum[keyof typeof CityWeatherApiWeatherGetModelEnum];
 
 
