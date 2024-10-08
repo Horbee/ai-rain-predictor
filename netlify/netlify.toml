@@ -1,0 +1,6 @@
+[functions]
+  directory = "functions"
+
+  included_files = ["model/*.onnx"]
+
+  external_node_modules = ["onnxruntime-node"]

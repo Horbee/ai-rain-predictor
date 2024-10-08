@@ -1,0 +1,23 @@
+{
+  "name": "netlify",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "postinstall": "node scripts/prune-onnx.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@9.12.1",
+  "dependencies": {
+    "@neondatabase/serverless": "^0.9.5",
+    "@netlify/functions": "^2.8.2",
+    "onnxruntime-node": "^1.19.2"
+  },
+  "devDependencies": {
+    "@types/node": "^22.7.4",
+    "netlify-cli": "^17.36.3",
+    "rimraf": "^6.0.1"
+  }
+}
