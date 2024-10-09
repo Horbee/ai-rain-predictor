@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "postinstall": "node scripts/prune-onnx.js"
+    "postinstall": "node prune-onnx.js"
   },
   "keywords": [],
   "author": "",
