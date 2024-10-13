@@ -40,15 +40,10 @@ export const useCityRainPrediction = () => {
   const cityWeatherApiWeatherGet = api.cityWeatherApiWeatherGet.bind(api);
 
   const mutation = useMutation({
-    mutationFn: (variables: { city: string }) =>
-      Promise.all([cityWeatherApiWeatherGet(variables.city, "pytorch_nn"), cityWeatherApiWeatherGet(variables.city, "sckitlearn_forest")]),
+    mutationFn: cityWeatherApiWeatherGet,
   });
 
-  const responses = computed(() => ({
-    city: mutation.data.value?.[0].data.city_weather,
-    pytorch_nn: mutation.data.value?.[0].data.prediction,
-    sckitlearn_forest: mutation.data.value?.[1].data.prediction,
-  }));
+  const response = computed(() => mutation.data.value?.data);
 
-  return { ...mutation, responses };
+  return { ...mutation, response };
 };

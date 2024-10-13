@@ -18,9 +18,9 @@ const { t } = useI18n<{ message: MessageSchema }>();
 
 const formState = useLocalStorage("lastCity", { city: "" });
 
-const { mutateAsync, isPending, responses } = useCityRainPrediction();
+const { mutateAsync, isPending, response } = useCityRainPrediction();
 
-const onSubmit = () => mutateAsync({ city: formState.value.city.trim() });
+const onSubmit = () => mutateAsync(formState.value.city.trim());
 
 onMounted(() => {
   if (formState.value.city.trim()) onSubmit();
@@ -38,7 +38,7 @@ onMounted(() => {
     </form>
   </div>
 
-  <div v-if="responses.city" class="mt-8 overflow-x-auto">
+  <div v-if="response" class="mt-8 overflow-x-auto">
     <Table>
       <TableHeader>
         <TableRow>
@@ -51,16 +51,13 @@ onMounted(() => {
       </TableHeader>
       <TableBody>
         <TableRow>
-          <TableCell>{{ responses.city.last_updated }}</TableCell>
-          <TableCell>{{ responses.city.temperature }}</TableCell>
-          <TableCell>{{ responses.city.pressure }}</TableCell>
-          <TableCell>{{ responses.city.humidity }}</TableCell>
+          <TableCell>{{ response.city_weather.last_updated }}</TableCell>
+          <TableCell>{{ response.city_weather.temperature }}</TableCell>
+          <TableCell>{{ response.city_weather.pressure }}</TableCell>
+          <TableCell>{{ response.city_weather.humidity }}</TableCell>
           <TableCell class="flex items-center gap-1">
             <Icon icon="ph:drop" class="h-[1.2rem] w-[1.2rem]" />
-            <div class="flex flex-col">
-              <span>{{ formatPercentage(responses.pytorch_nn?.probability || 0) }}</span>
-              <span>{{ formatPercentage(responses.sckitlearn_forest?.probability || 0) }}</span>
-            </div>
+            <span>{{ formatPercentage(response.prediction.probability) }}</span>
           </TableCell>
         </TableRow>
       </TableBody>
